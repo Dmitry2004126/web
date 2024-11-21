@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Возведение числа</title>
+</head>
+<body>
+    <h3 style="width: 690px">Перед вами программа, которая принимает от пользователя число Y, как параметр и возводит число Y - 2 в степень Y.</h3>
+    <input type="number" id="inputNumber"/>
+    <button id="firstbuttom">Рассчитать</button>
+    <div id="result"></div>
+    
+    <h3 style="width: 690px">Перед вами программа, которая сперва запрашивает у пользователя баланс счета и сумму операции, а потом спрашивает, какую операцию он хочет с ней совершить: внести эту сумму на счет или снять эту сумму со счета. Если сумма снятия превышает баланс, программа выводит сообщение о недостатке средств.</h3>
+    <input type="number" id="balanceInput" placeholder="Баланс счета" required/>
+    <input type="number" id="amountInput" placeholder="Сумма операции" required/>
+    <select name="select" id="select" required>
+        <option value="">--Please choose an option--</option>
+        <option value="plus">Plus</option>
+        <option value="minus">Minus</option>
+    </select>
+    <button id="secondbuttom">Проверить операцию</button>
+    <div id="result2"></div>
+    
+    <h1>Проверка существования треугольника</h1>
+    <form id="triangleForm">
+        <label for="sideA">Длина стороны A:</label>
+        <input type="number" id="sideA" min="0" required><br>
+        <label for="sideB">Длина стороны B:</label>
+        <input type="number" id="sideB" min="0" required><br>
+        <label for="sideC">Длина стороны C:</label>
+        <input type="number" id="sideC" min="0" required><br>
+        <button type="submit" onclick="checkTriangle()">Проверить</button>
+    </form>
+    
+    <div id="results"></div>
+    
+</body>
+<script src="script.js"></script>
+</html>

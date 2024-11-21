@@ -1,0 +1,162 @@
+<div id="app">
+    <input v-model='searchQuery' placeholder="Поиск команды..."/>
+    <button v-on:click="sortBy('name')">Сортировать по имени</button>
+    <button v-on:click="sortBy('goals')">Сортировать по голам</button>
+    <ul>
+        <li v-for="(item, index) in filteredData" :key="index">
+            {{ item.name }} - Goals: {{ item.goals }}
+        </li>
+    </ul>
+</div>
+<script type="module">
+    import { createApp, ref, computed} from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+    
+    createApp({
+        setup() {
+            const data = ref([])
+            data.value = [
+          {
+      "name": "Fulham FC", "code": "FUL",
+      "country": "England",
+      "goals" : 25
+    },
+    {
+      "name": "Aston Villa FC",
+      "code": "AVL",
+      "country": "England",
+      "goals" : 23
+    },
+    {
+      "name": "West Ham United FC",
+      "code": "WHU",
+      "country": "England",
+      "goals" : 10
+    },
+    {
+      "name": "Stoke City FC",
+      "code": "STK",
+      "country": "England",
+      "goals" : 30
+    },
+    {
+      "name": "Sunderland AFC",
+      "code": "SUN",
+      "country": "England",
+      "goals" : 27
+    },
+    {
+      "name": "Everton FC",
+      "code": "EVE",
+      "country": "England",
+      "goals" : 29
+    },
+    {
+      "name": "Tottenham Hotspur FC",
+      "code": "TOT",
+      "country": "England",
+      "goals" : 15
+    },
+    {
+      "name": "Manchester City FC",
+      "code": "MCI",
+      "country": "England",
+      "goals" : 18
+    },
+    {
+      "name": "Chelsea FC",
+      "code": "CHE",
+      "country": "England",
+      "goals" : 40
+    },
+    {
+      "name": "West Bromwich Albion FC",
+      "code": "WBA",
+      "country": "England",
+      "goals" : 27
+    },
+    {
+      "name": "Liverpool FC",
+      "code": "LIV",
+      "country": "England",
+      "goals" : 10
+    },
+    {
+      "name": "Arsenal FC",
+      "code": "ARS",
+      "country": "England",
+      "goals" : 38
+    },
+    {
+      "name": "Manchester United FC",
+      "code": "MUN",
+      "country": "England",
+      "goals" : 24
+    },
+    {
+      "name": "Newcastle United FC",
+      "code": "NEW",
+      "country": "England",
+      "goals" : 24
+    },
+    {
+      "name": "Norwich City FC",
+      "code": "NOR",
+      "country": "England",
+      "goals" : 28
+    },
+    {
+      "name": "Hull City AFC",
+      "code": "HUL",
+      "country": "England",
+      "goals" : 33
+    },
+    {
+      "name": "Swansea City FC",
+      "code": "SWA",
+      "country": "Wales",
+      "goals" : 32
+    },
+    {
+      "name": "Crystal Palace FC",
+      "code": "CRY",
+      "country": "England",
+      "goals" : 37
+    },
+    {
+      "name": "Cardiff City FC",
+      "code": "CAR",
+      "country": "Wales",
+      "goals" : 28
+    },
+    {
+      "name": "Southampton FC",
+      "code": "SOU",
+      "country": "England",
+      "goals" : 29
+    }
+            ]
+            const searchQuery = ref("")
+            
+            const filteredData = computed(() => {
+                return data.value.filter(item =>
+                                         item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+                                        )
+            })
+            
+            const sortBy = (key) => {
+                data.value.sort((a, b) => {
+                    if (a[key] < b[key]) return -1
+                    if (a[key] > b[key]) return 1
+                    return 0
+                })
+            }
+            
+            return {
+                data,
+                sortBy, 
+                searchQuery,
+                filteredData,
+            }
+        }
+    }).mount('#app')
+</script>

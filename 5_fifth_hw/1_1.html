@@ -1,0 +1,99 @@
+<div id="app1">{{ message }}</div>
+
+
+
+<div id="app">  </div>
+<form id="main" v-cloak>
+
+    <div class="bar">
+        <!-- Создает связь мужду моделью searchString model и текстовым полем -->
+
+        <input type="text" v-model="searchString" placeholder="Введите название статьи" >
+    </div>
+
+    <ul>
+        <!-- Рендерится li под каждый элемент массива filteredArticles. -->
+             
+        <li v-for="article in filteredArticles">
+        
+             <p>{{ article.length }}</p>
+             <p>{{ article }}</p>
+            
+        </li>
+    </ul>
+
+   
+</form>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
+<script type="importmap">
+  {
+    "imports": {
+      "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+
+    }
+  }
+</script>
+
+<script type="module">
+  import { createApp} from 'vue'
+
+  createApp({
+    setup() {
+      const message = 'Привет Vue!'
+      return {
+        message
+      }
+    }
+  }).mount('#app1')
+</script>
+
+<script type="module">
+  import { createApp} from 'vue'
+    createApp({
+    setup(){
+    var demo = new Vue({
+    el: "#main",
+    data: {
+            searchString: "",
+
+    // Модель данных. Эти данные в другом случае передавались бы ajax'ом, но сейчас описаны прямо здесь для упрощения.
+
+            articles: ['film -100','film2 -200','avatar -150']
+
+    },
+    computed: {
+    // Вычисленное свойство, которое содержит только те статьи, которые соответствуют searchString.
+    filteredArticles: function () {
+      var articles_array = this.articles,
+        searchString = this.searchString;
+
+      if (!searchString) {
+        return articles_array;
+      }
+
+      searchString = searchString.trim().toLowerCase();
+
+        //https://learn.javascript.ru/array-iteration   filter()используется для фильтрации массива через функцию.
+
+      articles_array = articles_array.filter(function (item) {
+      console.log(item)
+        if (item.toLowerCase().indexOf(searchString) !== -1) { //https://learn.javascript.ru/string
+          console.log(item)
+          console.log(searchString)
+          return item;
+        }
+      });
+
+      // Возвращает массив с отфильтрованными данными.
+      console.log(articles_array)
+      return articles_array;
+    }
+  }
+});
+}
+}).mount('#app')
+
+</script>

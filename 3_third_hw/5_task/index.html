@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Концерты групп</title>
+</head>
+<body>
+    <img src="concert.png">
+    <h2>Введите записи о концертах</h2>
+    <p>Пример: Агата Кристи, 23.02.2024
+Веселые программисты, 19.06.2023
+Агата Кристи, 25.02.2024
+Питоняшки, 27.08.2023
+Питоняшки, 04.05.2023
+Питоняшки, 27.02.2024
+END</p>
+
+    <textarea id="concerts" rows="10" cols="50" placeholder="Введите записи о концертах, например: &#10;Агата Кристи, 23.02.2023&#10;Питонашки, 27.08.2023&#10;END"></textarea><br><br>
+    
+    <button id="findBandBtn">Найти группу с наибольшим количеством концертов в 2023 году</button>
+
+    <h3>Результат:</h3>
+    <div id="result"></div>
+
+    <script>
+        function findTopBand() {
+            let input = document.getElementById("concerts").value.trim().split('\n');
+            
+            let concertsCount = {};  
+            const targetYear = 2023; 
+
+            for (let line of input) {
+                if (line.trim() === "END") {
+                    break;
+                }
+                let [band, date] = line.split(', ');
+                if (!band || !date) continue; 
+
+                let concertYear = date.split('.')[2]
+                if (Number(concertYear) === targetYear) {
+                    if (concertsCount[band]) {
+                        concertsCount[band]++;
+                    } else {
+                        concertsCount[band] = 1;
+                    }
+                }
+            }
+            let maxConcerts = 0;
+            let topBand = "";
+            for (let band in concertsCount) {
+                if (concertsCount[band] > maxConcerts) {
+                    maxConcerts = concertsCount[band];
+                    topBand = band;
+                }
+            }
+
+            if (topBand) {
+                document.getElementById("result").innerText = `${topBand} ${maxConcerts}`;
+            } else {
+                document.getElementById("result").innerText = "Концертов в 2023 году не найдено";
+            }
+        }
+        document.getElementById("findBandBtn").addEventListener('click', findTopBand);
+    </script>
+</body>
+</html>

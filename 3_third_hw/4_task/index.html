@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Средние цены товаров</title>
+</head>
+<body>
+    <img src="marina.png">
+    <h2>Введите информацию о товарах и их ценах</h2>
+    
+    <label for="products">Товары (в формате 'товар:цена1,цена2,цена3'): Пример: картошка:45,70,81; творог:20,80,54; молоко:23,56,87; бананы:290,76,98</label><br>
+    <textarea id="products" rows="5" cols="50" placeholder="картошка:45,70,81; творог:20,80,54; молоко:23,56,87; бананы:290,76,98"></textarea><br><br>
+
+    <button onclick="findCheapestProducts()">Найти товары с наименьшей средней ценой</button>
+
+    <h3>Результат:</h3>
+    <div id="result"></div>
+
+    <script>
+        function findCheapestProducts() {
+            
+            let input = document.getElementById("products").value;
+
+         
+            let items = input.split('; ');
+
+        
+            let products = [];
+
+     
+            for (let item of items) {
+          
+                let [name, prices] = item.split(':');
+                
+                let priceArray = prices.split(',').map(Number);
+       
+                let averagePrice = priceArray.reduce((sum, price) => sum + price, 0) / priceArray.length;
+            
+                products.push({ name, averagePrice });
+            }
+
+            products.sort((a, b) => {
+                return a.averagePrice - b.averagePrice;
+            });
+
+    
+            let resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = ""; 
+            products.forEach(product => {
+                let p = document.createElement("p");
+                p.textContent = product.name;
+                resultDiv.appendChild(p);
+            });
+        }
+    </script>
+</body>
+</html>

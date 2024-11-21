@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аналитика прибыли</title>
+</head>
+<body>
+    <img src="goods.png">
+    <h1>Введите данные о продажах</h1>
+    <p>Пример: Шоколад, 1000
+Мармеладки, 600
+Шоколад, 6000
+Киндер-сюрприз,1000
+Мармеладки,300
+END</p>
+    <textarea id="inputData" rows="10" cols="30"></textarea>
+    <br><br>
+    <button onclick="calculateMaxProfit()">Рассчитать</button>
+    <h2>Результат:</h2>
+    <p id="result"></p>
+
+    <script>
+        function calculateMaxProfit() {
+            const input = document.getElementById('inputData').value.split('\n');
+            const profitMap = new Map();
+            
+     
+            input.forEach(line => {
+                if (line.trim() === "END") return;
+                
+                const [item, profit] = line.split(',');
+                const itemName = item.trim();
+                const itemProfit = parseInt(profit.trim());
+                
+                if (profitMap.has(itemName)) {
+                    profitMap.set(itemName, profitMap.get(itemName) + itemProfit);
+                } else {
+                    profitMap.set(itemName, itemProfit);
+                }
+            });
+
+    
+            let maxProfitItem = '';
+            let maxProfit = 0;
+            profitMap.forEach((profit, item) => {
+                if (profit > maxProfit) {
+                    maxProfit = profit;
+                    maxProfitItem = item;
+                }
+            });
+
+            document.getElementById('result').innerText = `${maxProfitItem} ${maxProfit}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фильтрация городов</title>
+</head>
+<body>
+    <h1>Фильтрация городов</h1>
+    <form action="" method="post">
+        <label for="city">Введите город:</label><br>
+        <input type="text" id="city" name="city"><br>
+        <button type="submit" onclick="findWorstStudent(event)">Проверить</button>
+    </form>
+
+    <div id="results"></div>
+
+    <script>
+        function findWorstStudent(event) {
+            event.preventDefault(); 
+
+            const cities = ["Москва", "Санкт-Петербург", "Саратов", "Магадан", "Ярославль", "Самара", "Якутск"];
+            const userInput = document.getElementById("city").value;
+            const resultsDiv = document.getElementById("results");
+
+            const filteredCities = [];
+
+            if (cities.includes(userInput)) {
+              const filteredCities = cities.filter(function(city) {
+                return city[0] === userInput[0];
+              });
+
+              resultsDiv.innerHTML = `Города, начинающиеся с буквы "${userInput[0]}": ${filteredCities.join(", ")}`;
+            } else {
+              resultsDiv.innerHTML = ("Такого города нет в списке");
+            }
+        
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Средние оценки учеников</title>
+</head>
+<body>
+    <img src="marks.png">
+    <h2>Введите имена учеников и их оценки</h2>
+    
+    <label for="students">Имена учеников (через запятую и пробел):</label><br>
+    <input type="text" id="students" placeholder="Алина, Маша, Кристина"><br><br>
+
+    <label for="grades">Оценки учеников (в формате 'оценка1-оценка2-оценка3'): Пример: Алина, Маша, Кристина, Анастасия, Валерия, Игорь 
+30-10-20 78-23-43 15-18-10 18-33-87 7-29-34 90-38-30 
+Кристина</label><br>
+    <input type="text" id="grades" placeholder="30-10-20 78-23-43 15-18-10"><br><br>
+
+    <button onclick="findWorstStudent()">Найти самого отстающего ученика</button>
+
+    <h3>Результат:</h3>
+    <p id="result"></p>
+
+    <script>
+        function findWorstStudent() {
+            
+            let students = document.getElementById("students").value.split(', ');
+            let grades = document.getElementById("grades").value.split(' ');
+
+            
+            if (students.length !== grades.length) {
+                document.getElementById("result").innerText = "Ошибка: количество учеников и оценок не совпадает.";
+                return;
+            }
+
+            
+            let averages = {};
+
+            
+            for (let i = 0; i < students.length; i++) {
+                let scores = grades[i].split('-').map(Number);  
+                let average = scores.reduce((sum, score) => sum + score, 0) / scores.length;  
+                averages[students[i]] = average;  
+            }
+
+            
+            let worstStudent = Object.keys(averages).reduce((a, b) => averages[a] < averages[b] ? a : b);
+
+        
+            document.getElementById("result").innerText = "Самый отстающий ученик: " + worstStudent;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подсчёт калорийности продуктов</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input, button {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <img src="protein.png">
+    <h1>Подсчёт калорийности продуктов</h1>
+    <form id="caloriesForm">
+        <label for="products">Введите названия продуктов (через запятую):</label><br>
+        <input type="text" id="products" placeholder="Пример: Яблоко, Банан, Каша" required><br>
+        
+        <label for="macros">Введите белки, жиры и углеводы для каждого продукта (через запятую для каждого продукта):</label><br>
+        <input type="text" id="macros" placeholder="Пример: 1,0.3,12; 2,0.1,23; 5,2,20" required><br>
+        
+        <button type="submit">Посчитать</button>
+    </form>
+    
+    <h2>Результат</h2>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('caloriesForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const products = document.getElementById('products').value.split(' ').map(item => item.trim());
+            
+            
+            const macrosInput = document.getElementById('macros').value.split(' ').map(item => item.split('-').map(Number))
+      
+   
+            
+            if (products.length !== macrosInput.length) {
+                document.getElementById('result').innerText = "Количество продуктов и макросов должно совпадать!";
+                return;
+            }
+
+            let minCalories = 100000;
+            let minProduct = '';
+      
+            for (let i = 0; i < products.length; i++) {
+                const [protein, fat, carbs] = macrosInput[i];
+                const calories = 0.4 * protein + 0.3 * fat + 0.3 * carbs;
+                console.log(macrosInput[i])
+                if (calories < minCalories) {
+                    minCalories = calories;
+                    minProduct = products[i];
+                }
+            }
+
+            document.getElementById('result').innerText = `Самый низкокалорийный продукт: ${minProduct} (${minCalories.toFixed(2)} калорий)`;
+        });
+    </script>
+</body>
+</html>

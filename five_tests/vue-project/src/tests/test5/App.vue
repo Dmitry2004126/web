@@ -154,7 +154,7 @@
         this.matrix = this.generateMatrix();
         this.availableNumbers = [...this.matrix.flat()];
         this.testic = JSON.stringify(Object.assign({}, this.availableNumbers))
-        this.testic = JSON.parse(this.testic)
+        this.testic = JSON.parse(this.testic) // {'index of array': value in matrix} index= (0-80)
         
       this.targetSum = this.generateTargetSum();
       this.score = 0;

@@ -2,7 +2,7 @@
 
 ## Project Setup
 ```sh
-cd .\vue-project\
+cd .\five_tests\vue-project\
 ```
 
 ```sh
